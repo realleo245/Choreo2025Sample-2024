@@ -25,14 +25,17 @@ public final class Autos {
   public static Command exampleAuto(ExampleSubsystem subsystem, ProjectFile file) {
     return Commands.sequence(subsystem.exampleMethodCommand(), new ExampleCommand(subsystem));
   }
-  public static Command ampToSource(AutoFactory factory, ProjectFile file, SwerveDrive swerveDrive) {
+  public static Command ampToSource(AutoFactory factory, ProjectFile file, SwerveDrive swerveDrive, ExampleSubsystem exampleSubsystem) {
     Choreo.loadTrajectory("Amp to Source");
     AutoLoop loop = new AutoLoop("AmpToSource");
-    AutoTrajectory trajectory = factory.trajectory("AmpToSource", loop);
+    AutoTrajectory ampToCenter = factory.trajectory("Amp To Center", loop);
+    AutoTrajectory centerToSource = factory.trajectory("Center To Source", loop);
 
     loop.enabled()
       .onTrue(new InstantCommand(() -> swerveDrive.resetPose(trajectory.getInitialPose().get()))
-      .andThen(trajectory.cmd()));
+      .andThen(ampToCenter.cmd()))
+      .andThen(new ExampleCommand(exampleSubsystem))
+      .andThen(centerToSource.cmd());
     
 
     return loop.cmd();

@@ -4,7 +4,22 @@
  "type":"Swerve",
  "variables":{
   "expressions":{},
-  "poses":{}
+  "poses":{
+   "ampSpeaker":{
+    "x":{
+     "exp":"0.6364256143569946 m",
+     "val":0.6364256143569946
+    },
+    "y":{
+     "exp":"6.85892200469 m",
+     "val":6.85892200469
+    },
+    "heading":{
+     "exp":"240 deg",
+     "val":4.1887902047863905
+    }
+   }
+  }
  },
  "config":{
   "frontLeft":{
